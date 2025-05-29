@@ -2,7 +2,7 @@ name: Auto Lender Every 15 Minutes
 
 on:
   schedule:
-    - cron: "*/1 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:  # Allows manual run
 
 jobs:
