@@ -12,7 +12,11 @@ HEADERS = {
     "x-ldc-key": os.getenv("LEN_DEN_KEY"),
     "Content-Type": "application/json"
 }
-
+# Headers for authentication
+GITHUB_HEADERS = {
+    "Authorization": f"token {os.getenv('LEN_DEN_GIT_ISSUE_KEY')}",
+    "Accept": "application/vnd.github.v3+json"
+}
 INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
 BODY_FETCH = {
     "filters": ["tenure_3M","tenure_2M"],
@@ -45,7 +49,7 @@ def fetch_balance():
     else:
         print("Failed to fetch balance:", response.status_code)
         return None
-def lend_to_loans(loan_roi_data):
+def lend_to_loans(loan_roi_data,max_nunber_of_loans_to_lend,balance):
     body = {
         "partner_code": "LDC",
         "investor_id": INVESTOR_ID,
@@ -53,13 +57,45 @@ def lend_to_loans(loan_roi_data):
         "lending_amount": 250
     }
     print("Lending to loans:", loan_roi_data)
-    # response = requests.post(URL_LEND, headers=HEADERS, json=body)
+    response = requests.post(URL_LEND, headers=HEADERS, json=body)
     # print(response.text)
+    new_bal_json = fetch_balance()
+    if new_bal_json and new_bal_json.get("success") == 1:
+        new_balance = new_bal_json["data"].get("account_balance", 0)
     if response.status_code == 200 and response.json().get("success")== 1:
         print("Successfully lent to loans:", loan_roi_data)
+        create_github_issue(f"✅ Lending Success : {max_nunber_of_loans_to_lend} loans", f"Balance before {balance} \nBalance after {new_balance} \nLent to loans: {loan_roi_data}")
     else:
         print("Lending failed:", response.status_code, response.json().get("message", "No message in response"))
+        create_github_issue(f"❌ Lending Failed : {max_nunber_of_loans_to_lend} loans", f"Balance before {balance} \nBalance after {new_balance} \nResponse messgae {response.json().get("message", "No message in response")}\nLent to loans: {loan_roi_data}")
 
+
+# def check_condition():
+#     # Dummy condition logic
+#     return True
+
+# def generate_output():
+#     # This could be any logic
+#     return "This is the function output which will go into the GitHub issue."
+
+def create_github_issue(title, body):
+    url = f"https://api.github.com/repos/{os.getenv("REPO_OWNER")}/{os.getenv("REPO_NAME")}/issues"
+    payload = {
+        "title": title,
+        "body": body
+    }
+    response = requests.post(url, headers=GITHUB_HEADERS, json=payload)
+
+    if response.status_code == 201:
+        print("✅ Issue created successfully.")
+    else:
+        print(f"❌ Failed to create issue: {response.status_code}")
+        print(response.json())
+
+# Main logic
+# if check_condition():
+#     output = generate_output()
+#     create_github_issue("Auto-generated issue from function output", output)
 def run():
     bal_json = fetch_balance()
     if bal_json and bal_json.get("success") == 1:
@@ -91,7 +127,7 @@ def run():
         max_nunber_of_loans_to_lend = int(balance // 250)
         print(f"Max number of loans to lend based on balance: {max_nunber_of_loans_to_lend}")
         if balance >= 250 and len(to_lend) > 0:
-            lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend))
+            lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend),max_nunber_of_loans_to_lend,balance)
         else:
             print("No loans found with ROI > 48 or Balance is < 250.")
     else:
