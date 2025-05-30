@@ -51,7 +51,7 @@ def fetch_balance():
     else:
         print("Failed to fetch balance:", response.status_code)
         return None
-def lend_to_loans(loan_roi_data,max_nunber_of_loans_to_lend,balance):
+def lend_to_loans(loan_roi_data,loans_lent,balance):
     body = {
         "partner_code": "LDC",
         "investor_id": INVESTOR_ID,
@@ -66,11 +66,11 @@ def lend_to_loans(loan_roi_data,max_nunber_of_loans_to_lend,balance):
         new_balance = new_bal_json["data"].get("account_balance", 0)
     if response.status_code == 200 and response.json().get("success")== 1:
         print("Successfully lent to loans:", loan_roi_data)
-        create_github_issue(f"✅ Lending Success : {max_nunber_of_loans_to_lend} loans", f"Balance before {balance} \nBalance after {new_balance} \nLent to loans: {loan_roi_data}")
+        create_github_issue(f"✅ Lending Success : {loans_lent} loans", f"Balance before {balance} \nBalance after {new_balance} \nLent to loans: {loan_roi_data}")
     else:
         tmp_response = response.json().get("message", "No message in response")
         print("Lending failed:", response.status_code, tmp_response)
-        create_github_issue(f"❌ Lending Failed : {max_nunber_of_loans_to_lend} loans", f"Balance before {balance} \nBalance after {new_balance} \nResponse messgae {tmp_response}\nLent to loans: {loan_roi_data}")
+        create_github_issue(f"❌ Lending Failed : {loans_lent} loans", f"Balance before {balance} \nBalance after {new_balance} \nResponse messgae {tmp_response}\nLent to loans: {loan_roi_data}")
 
 
 # def check_condition():
@@ -130,7 +130,7 @@ def run():
         max_nunber_of_loans_to_lend = int(balance // 250)
         print(f"Max number of loans to lend based on balance: {max_nunber_of_loans_to_lend}")
         if balance >= 250 and len(to_lend) > 0:
-            lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend),max_nunber_of_loans_to_lend,balance)
+            lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend),len(to_lend),balance)
         else:
             print("No loans found with ROI > 48 or Balance is < 250.")
     else:
