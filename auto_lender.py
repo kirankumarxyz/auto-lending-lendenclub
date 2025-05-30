@@ -14,7 +14,7 @@ HEADERS = {
 }
 # Headers for authentication
 GITHUB_HEADERS = {
-    "Authorization": os.getenv("LEN_DEN_GIT_ISSUE_KEY"),
+    "Authorization": f"token {os.getenv('LEN_DEN_GIT_ISSUE_KEY')}",
     "Accept": "application/vnd.github.v3+json"
 }
 INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
@@ -28,6 +28,9 @@ BODY_FETCH = {
     "offset": 0,
     "loan_ids": []
 }
+print(f"https://api.github.com/repos/{os.getenv('REPO_OWNER')}/{os.getenv('REPO_NAME')}/issues")
+print(GITHUB_HEADERS)
+# exit(0)
 def limit_array(arr, limit=10):
     return arr[:limit] if len(arr) > limit else arr
 
