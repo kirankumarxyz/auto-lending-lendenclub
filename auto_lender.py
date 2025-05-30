@@ -80,7 +80,7 @@ def lend_to_loans(loan_roi_data,max_nunber_of_loans_to_lend,balance):
 #     return "This is the function output which will go into the GitHub issue."
 
 def create_github_issue(title, body):
-    url = f"https://api.github.com/repos/{os.getenv("REPO_OWNER")}/{os.getenv("REPO_NAME")}/issues"
+    url = f"https://api.github.com/repos/{os.getenv('REPO_OWNER')}/{os.getenv('REPO_NAME')}/issues"
     payload = {
         "title": title,
         "body": body
