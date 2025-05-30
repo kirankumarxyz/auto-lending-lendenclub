@@ -19,7 +19,7 @@ GITHUB_HEADERS = {
 }
 INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
 BODY_FETCH = {
-    "filters": ["tenure_3M","tenure_2M"],
+    "filters": ["tenure_2M"],
     "sort_by": ["roi_high_low", "tenure_low_high"],
     "partner_code": "LDC",
     "investor_id": INVESTOR_ID,
