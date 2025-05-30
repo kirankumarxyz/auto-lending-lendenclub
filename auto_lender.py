@@ -13,8 +13,9 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 # Headers for authentication
+GIT_KEY = os.getenv("LEN_DEN_GIT_ISSUE_KEY")
 GITHUB_HEADERS = {
-    "Authorization": f"token {os.getenv('LEN_DEN_GIT_ISSUE_KEY')}",
+    "Authorization": f"token {GIT_KEY}",
     "Accept": "application/vnd.github.v3+json"
 }
 INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
