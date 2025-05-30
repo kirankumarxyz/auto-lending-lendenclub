@@ -15,7 +15,7 @@ HEADERS = {
 
 INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
 BODY_FETCH = {
-    "filters": ["tenure_2M"],
+    "filters": ["tenure_3M","tenure_2M"],
     "sort_by": ["roi_high_low", "tenure_low_high"],
     "partner_code": "LDC",
     "investor_id": INVESTOR_ID,
@@ -30,6 +30,7 @@ def limit_array(arr, limit=10):
 def fetch_loans():
     response = requests.post(URL_FETCH, headers=HEADERS, json=BODY_FETCH)
       # Debugging line to see the response content
+    # print("response content:", response.text)
     if response.status_code == 200:
         return response.json()
     else:
@@ -52,7 +53,7 @@ def lend_to_loans(loan_roi_data):
         "lending_amount": 250
     }
     print("Lending to loans:", loan_roi_data)
-    response = requests.post(URL_LEND, headers=HEADERS, json=body)
+    # response = requests.post(URL_LEND, headers=HEADERS, json=body)
     # print(response.text)
     if response.status_code == 200 and response.json().get("success")== 1:
         print("Successfully lent to loans:", loan_roi_data)
@@ -60,6 +61,13 @@ def lend_to_loans(loan_roi_data):
         print("Lending failed:", response.status_code, response.json().get("message", "No message in response"))
 
 def run():
+    bal_json = fetch_balance()
+    if bal_json and bal_json.get("success") == 1:
+        balance = bal_json["data"].get("account_balance", 0)
+        # print(bal_json)
+        print(f"Current balance: {balance}")
+        if balance < 250:
+            print("Insufficient balance to lend. Waiting for next cycle.")
     # while True:
     print("Checking for eligible loans...")
     data = fetch_loans()
@@ -77,13 +85,7 @@ def run():
                     })
             except Exception as e:
                 print("Error processing loan:", e)
-        bal_json = fetch_balance()
-        if bal_json and bal_json.get("success") == 1:
-            balance = bal_json["data"].get("account_balance", 0)
-            # print(bal_json)
-            print(f"Current balance: {balance}")
-            if balance < 250:
-                print("Insufficient balance to lend. Waiting for next cycle.")
+
         # if to_lend and balance >= 250:
         print(len(to_lend), "loans found with ROI > 48.")
         max_nunber_of_loans_to_lend = int(balance // 250)
