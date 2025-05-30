@@ -66,8 +66,9 @@ def lend_to_loans(loan_roi_data,max_nunber_of_loans_to_lend,balance):
         print("Successfully lent to loans:", loan_roi_data)
         create_github_issue(f"✅ Lending Success : {max_nunber_of_loans_to_lend} loans", f"Balance before {balance} \nBalance after {new_balance} \nLent to loans: {loan_roi_data}")
     else:
-        print("Lending failed:", response.status_code, response.json().get("message", "No message in response"))
-        create_github_issue(f"❌ Lending Failed : {max_nunber_of_loans_to_lend} loans", f"Balance before {balance} \nBalance after {new_balance} \nResponse messgae {response.json().get("message", "No message in response")}\nLent to loans: {loan_roi_data}")
+        tmp_response = response.json().get("message", "No message in response")
+        print("Lending failed:", response.status_code, tmp_response)
+        create_github_issue(f"❌ Lending Failed : {max_nunber_of_loans_to_lend} loans", f"Balance before {balance} \nBalance after {new_balance} \nResponse messgae {tmp_response}\nLent to loans: {loan_roi_data}")
 
 
 # def check_condition():
