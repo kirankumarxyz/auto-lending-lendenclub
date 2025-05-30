@@ -9,7 +9,7 @@ This Python script automates lending to high-interest loans on [LenDenClub](http
 - ✅ Automatically fetches available loans every 15 minutes
 - ✅ Filters loans based on ROI (≥ 48%)
 - ✅ Lends ₹250 per eligible loan, up to available account balance
-- ✅ Logs success and errors
+- ✅ Logs success and errors along with git issue creation
 - ✅ Hosted on GitHub Actions (runs in the cloud, no local execution required)
 
 ---
@@ -28,7 +28,8 @@ This Python script automates lending to high-interest loans on [LenDenClub](http
 2. **Filter & Decide:** Selects loans with ROI ≥ 48%.
 3. **Check Balance:** Ensures minimum ₹250 balance is available.
 4. **Lend:** Sends a lending request using bulk lending API.
-5. **Wait:** Repeats every 15 minutes via scheduled GitHub workflow.
+5. **Create Git Issue:** Log the result by creating a GitHub issue for success/failure
+6. **Wait:** Repeats every 15 minutes via scheduled GitHub workflow.
 
 ---
 
@@ -45,7 +46,20 @@ cd auto-lending-lendenclub
 ```bash 
 pip install requests dotenv
 ```
-### 3.Run the Script
+### 3.🔐 Environment Variables
+```bash
+# .env file
+# LenDenClub API Auth
+LEN_DEN_AUTH=your_auth_token
+LEN_DEN_KEY=your_ldc_key
+LEN_DEN_INVESTOR_ID=your_investor_id
+
+# GitHub API Auth (for creating issues)
+LEN_DEN_GIT_ISSUE_KEY=your_github_token
+REPO_OWNER=your_github_username
+REPO_NAME=your_repository_name
+```
+### 4.Run the Script
 ```bash
 python auto_lender.py
 ```
@@ -65,8 +79,10 @@ on:
 To rotate or update tokens:
 - Edit the HEADERS dictionary in auto_lender.py.
 
+
 ## ❓ Q&A
 - Dont foget to env varibales (auth token , xldc key , investor id) as secrets in github repo settings
+- Create a token at [PAT](https://github.com/settings/personal-access-tokens) with repo R/W issues
 - if github action doesnot start
     - Check GitHub Actions settings
     - Go to:
