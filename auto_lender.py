@@ -29,9 +29,7 @@ BODY_FETCH = {
     "offset": 0,
     "loan_ids": []
 }
-# print(f"https://api.github.com/repos/{os.getenv('REPO_OWNER')}/{os.getenv('REPO_NAME')}/issues")
-# print(GITHUB_HEADERS)
-# exit(0)
+
 def limit_array(arr, limit=10):
     return arr[:limit] if len(arr) > limit else arr
 
@@ -75,13 +73,13 @@ def lend_to_loans(loan_roi_data,max_nunber_of_loans_to_lend,balance):
         create_github_issue(f"❌ Lending Failed : {max_nunber_of_loans_to_lend} loans", f"Balance before {balance} \nBalance after {new_balance} \nResponse messgae {tmp_response}\nLent to loans: {loan_roi_data}")
 
 
-def check_condition():
-    # Dummy condition logic
-    return True
+# def check_condition():
+#     # Dummy condition logic
+#     return True
 
-def generate_output():
-    # This could be any logic
-    return "This is the function output which will go into the GitHub issue."
+# def generate_output():
+#     # This could be any logic
+#     return "This is the function output which will go into the GitHub issue."
 
 def create_github_issue(title, body):
     url = f"https://api.github.com/repos/{os.getenv('REPO_OWNER')}/{os.getenv('REPO_NAME')}/issues"
@@ -98,9 +96,9 @@ def create_github_issue(title, body):
         print(response.json())
 
 # Main logic
-if check_condition():
-    output = generate_output()
-    create_github_issue("Auto-generated issue from function output", output)
+# if check_condition():
+#     output = generate_output()
+#     create_github_issue("Auto-generated issue from function output", output)
 def run():
     bal_json = fetch_balance()
     if bal_json and bal_json.get("success") == 1:
@@ -141,5 +139,5 @@ def run():
     # print("Sleeping for 15 minutes...\n")
     # time.sleep(900)  # Sleep for 900 seconds (15 minutes)
 
-# if __name__ == "__main__":
-#     run()
+if __name__ == "__main__":
+    run()
