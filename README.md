@@ -81,7 +81,7 @@ To rotate or update tokens:
 
 
 ## ❓ Q&A
-- Dont foget to env varibales (auth token , xldc key , investor id) as secrets in github repo settings
+- Dont foget to env varibales (auth token , xldc key , investor id) as secrets in github repo settings also in lend-cron.yml in github/workflows
 - Create a token at [PAT](https://github.com/settings/personal-access-tokens) with repo R/W issues
 - if github action doesnot start
     - Check GitHub Actions settings
