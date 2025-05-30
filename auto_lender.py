@@ -29,8 +29,8 @@ BODY_FETCH = {
     "offset": 0,
     "loan_ids": []
 }
-print(f"https://api.github.com/repos/{os.getenv('REPO_OWNER')}/{os.getenv('REPO_NAME')}/issues")
-print(GITHUB_HEADERS)
+# print(f"https://api.github.com/repos/{os.getenv('REPO_OWNER')}/{os.getenv('REPO_NAME')}/issues")
+# print(GITHUB_HEADERS)
 # exit(0)
 def limit_array(arr, limit=10):
     return arr[:limit] if len(arr) > limit else arr

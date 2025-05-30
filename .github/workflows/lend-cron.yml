@@ -24,6 +24,10 @@ jobs:
 env:
   LEN_DEN_AUTH : ${{ secrets.LEN_DEN_AUTH }}
   LEN_DEN_KEY : ${{ secrets.LEN_DEN_KEY }}
+  LEN_DEN_INVESTOR_ID : ${{ secrets.LEN_DEN_INVESTOR_ID }}
+  LEN_DEN_GIT_ISSUE_KEY : ${{ secrets.LEN_DEN_GIT_ISSUE_KEY }}
+  REPO_OWNER : ${{ secrets.REPO_OWNER }}
+  REPO_NAME : ${{ secrets.REPO_NAME }}
 # LENDER_API_KEY: ${{ secrets.LENDER_API_KEY }}
 # LENDER_API_SECRET: ${{ secrets.LENDER_API_SECRET }}
 # LENDER_ACCOUNT_ID: ${{ secrets.LENDER_ACCOUNT_ID }}
