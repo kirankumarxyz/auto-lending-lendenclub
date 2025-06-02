@@ -130,7 +130,7 @@ def run():
         max_nunber_of_loans_to_lend = int(balance // 250)
         print(f"Max number of loans to lend based on balance: {max_nunber_of_loans_to_lend}")
         if balance >= 250 and len(to_lend) > 0:
-            lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend),len(to_lend),balance)
+            lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend),len(limit_array(to_lend, max_nunber_of_loans_to_lend)),balance)
         else:
             print("No loans found with ROI > 48 or Balance is < 250.")
     else:
