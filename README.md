@@ -95,7 +95,9 @@ To rotate or update tokens:
         - ✅ "Read and write permissions" is selected.
         - ✅ "Allow GitHub Actions to create and approve pull requests" is enabled (optional).
 ## 🔮 Future 
-- 📅 if lending is sucess or fail create a github issue
+- 📅 if lending is sucess or fail create a github issue **Implemented**
+- 📅 Currenlty the token expires in 2 days , have to implement a mechanism similar to mobile app login using access code with refressing token mechanism
+    - To check expiry paste the LEN_DEN_AUTH to [JWT Decoder](https://jwt.io/) and see the paylod
 
 ## 👤 Author
 Kalyan
