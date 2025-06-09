@@ -19,8 +19,6 @@ GITHUB_HEADERS = {
     "Accept": "application/vnd.github.v3+json"
 }
 INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
-INVESTOR_RATE = os.getenv("LEN_DEN_INVESTOR_RATE",48.00)
-
 BODY_FETCH = {
     "filters": ["tenure_2M"],
     "sort_by": ["roi_high_low", "tenure_low_high"],
@@ -119,7 +117,7 @@ def run():
         for loan in loans:
             try:
                 roi = float(loan["loan_roi"])
-                if roi >= float(INVESTOR_RATE):
+                if roi >= 47.76:
                     to_lend.append({
                         "loan_id": loan["loan_id"],
                         "loan_roi": "{:.2f}".format(roi)
@@ -128,13 +126,13 @@ def run():
                 print("Error processing loan:", e)
 
         # if to_lend and balance >= 250:
-        print(len(to_lend), f"loans found with ROI > {INVESTOR_RATE}.")
+        print(len(to_lend), f"loans found with ROI > 47.76.")
         max_nunber_of_loans_to_lend = int(balance // 250)
         print(f"Max number of loans to lend based on balance: {max_nunber_of_loans_to_lend}")
         if balance >= 250 and len(to_lend) > 0:
             lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend),len(limit_array(to_lend, max_nunber_of_loans_to_lend)),balance)
         else:
-            print(f"No loans found with ROI > {INVESTOR_RATE} or Balance is < 250.")
+            print(f"No loans found with ROI > 47.76 or Balance is < 250.")
     else:
         print("No data returned or error from API.")
 
