@@ -20,6 +20,8 @@ GITHUB_HEADERS = {
 }
 INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
 INVESTOR_RATE = os.getenv("LEN_DEN_INVESTOR_RATE",48.00)
+if os.getenv("LEN_DEN_INVESTOR_RATE") is None:
+    INVESTOR_RATE = 48.00  # Default value if not set in .env
 BODY_FETCH = {
     "filters": ["tenure_2M"],
     "sort_by": ["roi_high_low", "tenure_low_high"],
