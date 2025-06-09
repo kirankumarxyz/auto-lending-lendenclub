@@ -25,6 +25,7 @@ env:
   LEN_DEN_AUTH : ${{ secrets.LEN_DEN_AUTH }}
   LEN_DEN_KEY : ${{ secrets.LEN_DEN_KEY }}
   LEN_DEN_INVESTOR_ID : ${{ secrets.LEN_DEN_INVESTOR_ID }}
+  LEN_DEN_INVESTOR_RATE : ${{ secrets.LEN_DEN_INVESTOR_RATE }}
   LEN_DEN_GIT_ISSUE_KEY : ${{ secrets.LEN_DEN_GIT_ISSUE_KEY }}
   REPO_OWNER : ${{ secrets.REPO_OWNER }}
   REPO_NAME : ${{ secrets.REPO_NAME }}
