@@ -117,7 +117,7 @@ def run():
         for loan in loans:
             try:
                 roi = float(loan["loan_roi"])
-                if roi >= 48:
+                if roi >= 47.76:
                     to_lend.append({
                         "loan_id": loan["loan_id"],
                         "loan_roi": "{:.2f}".format(roi)
