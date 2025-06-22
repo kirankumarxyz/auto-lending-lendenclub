@@ -129,13 +129,13 @@ def run():
                 print("Error processing loan:", e)
 
         # if to_lend and balance >= 250:
-        print(len(to_lend), f"loans found with ROI > 47.76.")
+        print(len(to_lend), f"loans found with ROI > {LENDER_INTEREST_RATE}.")
         max_nunber_of_loans_to_lend = int(balance // 250)
         print(f"Max number of loans to lend based on balance: {max_nunber_of_loans_to_lend}")
         if balance >= 250 and len(to_lend) > 0:
             lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend),len(limit_array(to_lend, max_nunber_of_loans_to_lend)),balance)
         else:
-            print(f"No loans found with ROI > 47.76 or Balance is < 250.")
+            print(f"No loans found with ROI > {LENDER_INTEREST_RATE} or Balance is < 250.")
     else:
         print("No data returned or error from API.")
 
