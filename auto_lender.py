@@ -4,21 +4,24 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 # Constants
+INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
 URL_FETCH = "https://investor-api.lendenclub.com/api/ims/retail-investor/v5/web/available-loans"
 URL_LEND = "https://investor-api.lendenclub.com/api/ims/retail-investor/v5/web/bulk-lending"
-URL_BAL = "https://investor-api.lendenclub.com/api/ios/retail-investor/v5/web/account-status?investor_id=1Z2F4Z8J1X&partner_code=LDC&partner_id="
+URL_BAL = f"https://investor-api.lendenclub.com/api/ios/retail-investor/v5/web/account-status?investor_id={INVESTOR_ID}&partner_code=LDC&partner_id="
 HEADERS = {
     "authorization": os.getenv("LEN_DEN_AUTH"),
     "x-ldc-key": os.getenv("LEN_DEN_KEY"),
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "User-Agent": "Mozilla/5.0"
 }
 # Headers for authentication
 GIT_KEY = os.getenv("LEN_DEN_GIT_ISSUE_KEY")
+LENDER_INTEREST_RATE= float(os.getenv("LEN_DEN_LENDER_INTEREST_RATE", "48"))  # Default to 48 if not set
 GITHUB_HEADERS = {
     "Authorization": f"token {GIT_KEY}",
     "Accept": "application/vnd.github.v3+json"
 }
-INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
+
 BODY_FETCH = {
     "filters": ["tenure_2M"],
     "sort_by": ["roi_high_low", "tenure_low_high"],
@@ -117,7 +120,7 @@ def run():
         for loan in loans:
             try:
                 roi = float(loan["loan_roi"])
-                if roi >= 47.76:
+                if roi >= LENDER_INTEREST_RATE:
                     to_lend.append({
                         "loan_id": loan["loan_id"],
                         "loan_roi": "{:.2f}".format(roi)

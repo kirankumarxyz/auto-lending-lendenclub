@@ -28,6 +28,7 @@ env:
   LEN_DEN_GIT_ISSUE_KEY : ${{ secrets.LEN_DEN_GIT_ISSUE_KEY }}
   REPO_OWNER : ${{ secrets.REPO_OWNER }}
   REPO_NAME : ${{ secrets.REPO_NAME }}
+  LENDER_INTEREST_RATE: ${{ secrets.LENDER_INTEREST_RATE }}
 # LENDER_API_KEY: ${{ secrets.LENDER_API_KEY }}
 # LENDER_API_SECRET: ${{ secrets.LENDER_API_SECRET }}
 # LENDER_ACCOUNT_ID: ${{ secrets.LENDER_ACCOUNT_ID }}
