@@ -16,7 +16,11 @@ HEADERS = {
 }
 # Headers for authentication
 GIT_KEY = os.getenv("LEN_DEN_GIT_ISSUE_KEY")
-LENDER_INTEREST_RATE_INNER = float(os.getenv("LENDER_INTEREST_RATE", "48"))  # Default to 48 if not set
+try:
+    LENDER_INTEREST_RATE_INNER = float(os.getenv("LENDER_INTEREST_RATE", "48"))
+except (TypeError, ValueError):
+    print("Warning: Invalid LENDER_INTEREST_RATE, defaulting to 48.")
+    LENDER_INTEREST_RATE_INNER = 48.0
 GITHUB_HEADERS = {
     "Authorization": f"token {GIT_KEY}",
     "Accept": "application/vnd.github.v3+json"
