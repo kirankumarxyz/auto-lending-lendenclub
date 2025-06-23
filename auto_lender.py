@@ -16,7 +16,7 @@ HEADERS = {
 }
 # Headers for authentication
 GIT_KEY = os.getenv("LEN_DEN_GIT_ISSUE_KEY")
-LENDER_INTEREST_RATE= float(os.getenv("LENDER_INTEREST_RATE", "48"))  # Default to 48 if not set
+LENDER_INTEREST_RATE_INNER = float(os.getenv("LENDER_INTEREST_RATE", "48"))  # Default to 48 if not set
 GITHUB_HEADERS = {
     "Authorization": f"token {GIT_KEY}",
     "Accept": "application/vnd.github.v3+json"
@@ -120,7 +120,7 @@ def run():
         for loan in loans:
             try:
                 roi = float(loan["loan_roi"])
-                if roi >= LENDER_INTEREST_RATE:
+                if roi >= LENDER_INTEREST_RATE_INNER:
                     to_lend.append({
                         "loan_id": loan["loan_id"],
                         "loan_roi": "{:.2f}".format(roi)
@@ -129,13 +129,13 @@ def run():
                 print("Error processing loan:", e)
 
         # if to_lend and balance >= 250:
-        print(len(to_lend), f"loans found with ROI > {LENDER_INTEREST_RATE}.")
+        print(len(to_lend), f"loans found with ROI > {LENDER_INTEREST_RATE_INNER}.")
         max_nunber_of_loans_to_lend = int(balance // 250)
         print(f"Max number of loans to lend based on balance: {max_nunber_of_loans_to_lend}")
         if balance >= 250 and len(to_lend) > 0:
             lend_to_loans(limit_array(to_lend, max_nunber_of_loans_to_lend),len(limit_array(to_lend, max_nunber_of_loans_to_lend)),balance)
         else:
-            print(f"No loans found with ROI > {LENDER_INTEREST_RATE} or Balance is < 250.")
+            print(f"No loans found with ROI > {LENDER_INTEREST_RATE_INNER} or Balance is < 250.")
     else:
         print("No data returned or error from API.")
 
