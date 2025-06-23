@@ -8,6 +8,7 @@ on:
 jobs:
   lend:
     runs-on: ubuntu-latest
+    environment: LENDER_INTEREST_RATE
     steps:
       - uses: actions/checkout@v3
 
