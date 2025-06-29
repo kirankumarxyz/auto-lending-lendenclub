@@ -2,17 +2,19 @@ import requests
 import time
 import os
 from dotenv import load_dotenv
+import json
 load_dotenv()
 # Constants
+
 INVESTOR_ID = os.getenv("LEN_DEN_INVESTOR_ID")
 URL_FETCH = "https://investor-api.lendenclub.com/api/ims/retail-investor/v5/web/available-loans"
 URL_LEND = "https://investor-api.lendenclub.com/api/ims/retail-investor/v5/web/bulk-lending"
 URL_BAL = f"https://investor-api.lendenclub.com/api/ios/retail-investor/v5/web/account-status?investor_id={INVESTOR_ID}&partner_code=LDC&partner_id="
 HEADERS = {
-    "authorization": os.getenv("LEN_DEN_AUTH"),
-    "x-ldc-key": os.getenv("LEN_DEN_KEY"),
-    "Content-Type": "application/json",
-    "User-Agent": "Mozilla/5.0"
+    'Authorization': os.getenv("LEN_DEN_AUTH"),
+    'x-ldc-key': os.getenv("LEN_DEN_KEY"),
+    'Content-Type': 'application/json',
+    'User-Agent': "PostmanRuntime/7.36.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
 }
 # Headers for authentication
 GIT_KEY = os.getenv("LEN_DEN_GIT_ISSUE_KEY")
@@ -27,21 +29,26 @@ GITHUB_HEADERS = {
 }
 
 BODY_FETCH = {
-    "filters": ["tenure_2M"],
-    "sort_by": ["roi_high_low", "tenure_low_high"],
-    "partner_code": "LDC",
-    "investor_id": INVESTOR_ID,
-    "partner_id": "",
-    "limit": 10,
-    "offset": 0,
-    "loan_ids": []
+  "filters": [
+    "tenure_2M"
+  ],
+  "sort_by": [
+    "roi_high_low",
+    "tenure_low_high"
+  ],
+  "partner_code": "LDC",
+  "investor_id": INVESTOR_ID,
+  "partner_id": "",
+  "limit": 10,
+  "offset": 0,
+  "loan_ids": []
 }
 
 def limit_array(arr, limit=10):
     return arr[:limit] if len(arr) > limit else arr
 
 def fetch_loans():
-    response = requests.post(URL_FETCH, headers=HEADERS, json=BODY_FETCH)
+    response = requests.request("POST",URL_FETCH, headers=HEADERS, json=BODY_FETCH)
       # Debugging line to see the response content
     # print("response content:", response.text)
     if response.status_code == 200:
