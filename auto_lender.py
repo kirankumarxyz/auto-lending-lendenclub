@@ -19,15 +19,15 @@ HEADERS = {
 # Headers for authentication
 GIT_KEY = os.getenv("LEN_DEN_GIT_ISSUE_KEY")
 try:
-    LENDER_INTEREST_RATE_INNER = float(os.getenv("LENDER_INTEREST_RATE", "48"))
+    LENDER_INTEREST_RATE_INNER = float(os.getenv("LENDER_INTEREST_RATE", "40"))
 except (TypeError, ValueError):
-    print("Warning: Invalid LENDER_INTEREST_RATE, defaulting to 48.")
-    LENDER_INTEREST_RATE_INNER = 48
+    print("Warning: Invalid LENDER_INTEREST_RATE, defaulting to 40.")
+    LENDER_INTEREST_RATE_INNER = 40
 try:
-    LENDER_CIBIL_RATE = float(os.getenv("LENDER_CIBIL_RATE", "700"))
+    LENDER_CIBIL_RATE = float(os.getenv("LENDER_CIBIL_RATE", "750"))
 except (TypeError, ValueError):
-    print("Warning: Invalid LENDER_CIBIL_RATE, defaulting to 700.")
-    LENDER_CIBIL_RATE = 700
+    print("Warning: Invalid LENDER_CIBIL_RATE, defaulting to 750.")
+    LENDER_CIBIL_RATE = 750
 try:
     LENDER_CIBIL_REPEATED_RATE = float(os.getenv("LENDER_CIBIL_REPEATED_RATE", "770"))
 except (TypeError, ValueError):
