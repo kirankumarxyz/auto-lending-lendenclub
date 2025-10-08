@@ -265,10 +265,9 @@ def run2():
         print(f"Current balance: {balance}")
         if balance < LENDING_LOAN_AMOUNT:
             print("Insufficient balance to lend. Waiting for next cycle.")
-    # while True:
-    if balance < LENDING_LOAN_AMOUNT:
-            if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO": 
-                return
+        if balance < LENDING_LOAN_AMOUNT:
+                if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO": 
+                    return
 
     print("Checking for eligible loans...")
     data = fetch_loans()
@@ -306,10 +305,9 @@ def run3():
         print(f"Current balance: {balance}")
         if balance < LENDING_LOAN_REPEATED_AMOUNT:
             print("Insufficient balance to lend. Waiting for next cycle.")
-    # while True:
-    if balance < LENDING_LOAN_AMOUNT:
-            if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO": 
-                return
+        if balance < LENDING_LOAN_AMOUNT:
+                if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO": 
+                    return
     print("Checking for eligible loans...")
     data = fetch_loans_rep()
     if data and data.get("success") == 1:
