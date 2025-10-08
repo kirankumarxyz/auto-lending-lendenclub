@@ -19,38 +19,65 @@ HEADERS = {
 # Headers for authentication
 GIT_KEY = os.getenv("LEN_DEN_GIT_ISSUE_KEY")
 try:
-    LENDER_INTEREST_RATE_INNER = float(os.getenv("LENDER_INTEREST_RATE", "40"))
+    rate_str = os.getenv("LENDER_INTEREST_RATE", "40")
+    if rate_str and rate_str.strip():
+        LENDER_INTEREST_RATE_INNER = float(rate_str)
+    else:
+        LENDER_INTEREST_RATE_INNER = 40
 except (TypeError, ValueError):
     print("Warning: Invalid LENDER_INTEREST_RATE, defaulting to 40.")
     LENDER_INTEREST_RATE_INNER = 40
 try:
-    LENDER_CIBIL_RATE = float(os.getenv("LENDER_CIBIL_RATE", "750"))
+    rate_str = os.getenv("LENDER_CIBIL_RATE", "750")
+    if rate_str and rate_str.strip():
+        LENDER_CIBIL_RATE = float(rate_str)
+    else:
+        LENDER_CIBIL_RATE = 750
 except (TypeError, ValueError):
     print("Warning: Invalid LENDER_CIBIL_RATE, defaulting to 750.")
     LENDER_CIBIL_RATE = 750
 try:
-    LENDER_CIBIL_REPEATED_RATE = float(os.getenv("LENDER_CIBIL_REPEATED_RATE", "770"))
+    rate_str = os.getenv("LENDER_CIBIL_REPEATED_RATE", "770")
+    if rate_str and rate_str.strip():
+        LENDER_CIBIL_REPEATED_RATE = float(rate_str)
+    else:
+        LENDER_CIBIL_REPEATED_RATE = 770
 except (TypeError, ValueError):
     print("Warning: Invalid LENDER_CIBIL_REPEATED_RATE, defaulting to 770.")
     LENDER_CIBIL_REPEATED_RATE = 770
 try:
-    LENDING_LOAN_AMOUNT = float(os.getenv("LENDING_LOAN_AMOUNT", "250"))
+    rate_str = os.getenv("LENDING_LOAN_AMOUNT", "250")
+    if rate_str and rate_str.strip():
+        LENDING_LOAN_AMOUNT = float(rate_str)
+    else:
+        LENDING_LOAN_AMOUNT = 250
 except (TypeError, ValueError):
     print("Warning: Invalid LENDING_LOAN_AMOUNT, defaulting to 250.")
     LENDING_LOAN_AMOUNT = 250
 try:
-    LENDING_LOAN_REPEATED_AMOUNT = float(os.getenv("LENDING_LOAN_REPEATED_AMOUNT", "1000"))
+    rate_str = os.getenv("LENDING_LOAN_REPEATED_AMOUNT", "1000")
+    if rate_str and rate_str.strip():
+        LENDING_LOAN_REPEATED_AMOUNT = float(rate_str)
+    else:
+        LENDING_LOAN_REPEATED_AMOUNT = 1000
 except (TypeError, ValueError):
     print("Warning: Invalid LENDING_LOAN_REPEATED_AMOUNT, defaulting to 1000.")
     LENDING_LOAN_REPEATED_AMOUNT = 1000
 try:
-    LENDING_LOANS_SEARCH_LIMIT = float(os.getenv("LENDING_LOANS_SEARCH_LIMIT", "10"))
+    rate_str = os.getenv("LENDING_LOANS_SEARCH_LIMIT", "10")
+    if rate_str and rate_str.strip():
+        LENDING_LOANS_SEARCH_LIMIT = float(rate_str)
+    else:
+        LENDING_LOANS_SEARCH_LIMIT = 10
 except (TypeError, ValueError):
     print("Warning: Invalid LENDING_LOANS_SEARCH_LIMIT, defaulting to 10.")
     LENDING_LOANS_SEARCH_LIMIT = 10
 
-LENDING_TO_REPEATED_PEOPLE = os.getenv("LENDING_TO_REPEATED_PEOPLE", "NO")
-CHECK_LOANS_IF_BALANCE_IS_ZERO = os.getenv("CHECK_LOANS_IF_BALANCE_IS_ZERO", "NO")
+lending_to_repeated = os.getenv("LENDING_TO_REPEATED_PEOPLE", "NO")
+LENDING_TO_REPEATED_PEOPLE = lending_to_repeated if lending_to_repeated and lending_to_repeated.strip() else "NO"
+
+check_loans = os.getenv("CHECK_LOANS_IF_BALANCE_IS_ZERO", "NO")
+CHECK_LOANS_IF_BALANCE_IS_ZERO = check_loans if check_loans and check_loans.strip() else "NO"
 
 GITHUB_HEADERS = {
     "Authorization": f"token {GIT_KEY}",
