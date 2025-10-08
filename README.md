@@ -92,6 +92,12 @@ To rotate or update tokens:
 - in the network tab now click account-status
 - right side you will find Authorization -> it is lendenauth And LEN_DEN_AUTH is LEN_DEN_KEY
 - And below that you wil see some json response will be present , just after mail id you can see user_id --> it is LEN_DEN_INVESTOR_ID
+
+## To modify secrets or vars in repo
+- repo -> settings -> secrets and varibles -> actions 
+- for secrets -> pen button in each secret var
+- for vars -> go to variables and pen button and each varible
+
 ## ❓ Q&A
 - Dont foget to env varibales (auth token , xldc key , investor id) as secrets in github repo settings also in lend-cron.yml in github/workflows
 - Create a token at [PAT](https://github.com/settings/personal-access-tokens) with repo R/W issues
