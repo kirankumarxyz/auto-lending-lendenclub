@@ -43,6 +43,15 @@ try:
 except (TypeError, ValueError):
     print("Warning: Invalid LENDING_LOAN_REPEATED_AMOUNT, defaulting to 1000.")
     LENDING_LOAN_REPEATED_AMOUNT = 1000
+try:
+    LENDING_LOANS_SEARCH_LIMIT = float(os.getenv("LENDING_LOANS_SEARCH_LIMIT", "10"))
+except (TypeError, ValueError):
+    print("Warning: Invalid LENDING_LOANS_SEARCH_LIMIT, defaulting to 10.")
+    LENDING_LOANS_SEARCH_LIMIT = 10
+
+LENDING_TO_REPEATED_PEOPLE = os.getenv("LENDING_TO_REPEATED_PEOPLE", "NO")
+CHECK_LOANS_IF_BALANCE_IS_ZERO = os.getenv("CHECK_LOANS_IF_BALANCE_IS_ZERO", "NO")
+
 GITHUB_HEADERS = {
     "Authorization": f"token {GIT_KEY}",
     "Accept": "application/vnd.github.v3+json"
@@ -58,7 +67,7 @@ BODY_FETCH = {
   "partner_code": "LDC",
   "investor_id": INVESTOR_ID,
   "partner_id": "",
-  "limit": 100,
+  "limit": LENDING_LOANS_SEARCH_LIMIT,
   "offset": 0,
   "loan_ids": []
 }
@@ -74,7 +83,7 @@ BODY_FETCH_REP_LOANS = {
   "partner_code": "LDC",
   "investor_id": INVESTOR_ID,
   "partner_id": "",
-  "limit": 100,
+  "limit": LENDING_LOANS_SEARCH_LIMIT,
   "offset": 0,
   "loan_ids": []
 }
@@ -230,6 +239,8 @@ def run2():
         if balance < LENDING_LOAN_AMOUNT:
             print("Insufficient balance to lend. Waiting for next cycle.")
     # while True:
+    if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO":
+        return
     print("Checking for eligible loans...")
     data = fetch_loans()
     if data and data.get("success") == 1:
@@ -267,6 +278,8 @@ def run3():
         if balance < LENDING_LOAN_REPEATED_AMOUNT:
             print("Insufficient balance to lend. Waiting for next cycle.")
     # while True:
+    if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO":
+        return
     print("Checking for eligible loans...")
     data = fetch_loans_rep()
     if data and data.get("success") == 1:
@@ -296,5 +309,8 @@ def run3():
         print("No data returned or error from API.")
 if __name__ == "__main__":
     # run()
-    run2()
-    run3()
+    if LENDING_TO_REPEATED_PEOPLE == "YES":
+        run3()
+    else:
+        run2()
+    # run3()
