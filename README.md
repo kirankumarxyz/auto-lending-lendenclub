@@ -79,7 +79,19 @@ on:
 To rotate or update tokens:
 - Edit the HEADERS dictionary in auto_lender.py.
 
-
+## To get lenden keys and auth from mobile
+- Create a new bookmark named inspect in chrome
+    - in url add below code 
+    ```javascript
+    javascript:(function () {     var script =  document.createElement('script');    script.src="//cdn.jsdelivr.net/npm/eruda";     document.body.appendChild(script);    script.onload = function () {         eruda.init()     } })();
+    ```
+- login to lenden in chrome  in desktop view and now in serachbar type inspect ,at the bottom you will see bookmarked inspect , clik that 
+- Now you will see a gear symbol at bottom right 
+- click on it and go to network tab 
+- click on the balance number in lenden website
+- in the network tab now click account-status
+- right side you will find Authorization -> it is lendenauth And LEN_DEN_AUTH is LEN_DEN_KEY
+- And below that you wil see some json response will be present , just after mail id you can see user_id --> it is LEN_DEN_INVESTOR_ID
 ## ❓ Q&A
 - Dont foget to env varibales (auth token , xldc key , investor id) as secrets in github repo settings also in lend-cron.yml in github/workflows
 - Create a token at [PAT](https://github.com/settings/personal-access-tokens) with repo R/W issues
