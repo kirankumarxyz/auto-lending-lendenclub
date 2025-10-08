@@ -194,7 +194,7 @@ def create_github_issue(title, body):
         "body": body
     }
     response = requests.post(url, headers=GITHUB_HEADERS, json=payload)
-
+    print(url)
     if response.status_code == 201:
         print("✅ Issue created successfully.")
     else:
@@ -266,8 +266,10 @@ def run2():
         if balance < LENDING_LOAN_AMOUNT:
             print("Insufficient balance to lend. Waiting for next cycle.")
     # while True:
-    if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO":
-        return
+    if balance < LENDING_LOAN_AMOUNT:
+            if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO": 
+                return
+
     print("Checking for eligible loans...")
     data = fetch_loans()
     if data and data.get("success") == 1:
@@ -305,8 +307,9 @@ def run3():
         if balance < LENDING_LOAN_REPEATED_AMOUNT:
             print("Insufficient balance to lend. Waiting for next cycle.")
     # while True:
-    if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO":
-        return
+    if balance < LENDING_LOAN_AMOUNT:
+            if CHECK_LOANS_IF_BALANCE_IS_ZERO == "NO": 
+                return
     print("Checking for eligible loans...")
     data = fetch_loans_rep()
     if data and data.get("success") == 1:
