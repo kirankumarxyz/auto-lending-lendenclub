@@ -90,7 +90,7 @@ To rotate or update tokens:
 - click on it and go to network tab 
 - click on the balance number in lenden website
 - in the network tab now click account-status
-- right side you will find Authorization -> it is lendenauth And LEN_DEN_AUTH is LEN_DEN_KEY
+- right side you will find Authorization -> it is  LEN_DEN_AUTH ad x-ldc-key is  LEN_DEN_KEY
 - And below that you wil see some json response will be present , just after mail id you can see user_id --> it is LEN_DEN_INVESTOR_ID
 
 ## To modify secrets or vars in repo
